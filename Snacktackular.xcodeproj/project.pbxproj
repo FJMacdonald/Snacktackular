@@ -17,6 +17,9 @@
 		99D363B62A9F7E9B00AE7627 /* FirebaseStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 99D363B52A9F7E9B00AE7627 /* FirebaseStorage */; };
 		99D363B82A9F821A00AE7627 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 99D363B72A9F821A00AE7627 /* GoogleService-Info.plist */; };
 		99D363BA2A9F9AEA00AE7627 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363B92A9F9AEA00AE7627 /* ListView.swift */; };
+		99D363BC2A9FC4BC00AE7627 /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363BB2A9FC4BC00AE7627 /* Spot.swift */; };
+		99D363BE2A9FC61A00AE7627 /* SpotDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363BD2A9FC61A00AE7627 /* SpotDetailView.swift */; };
+		99D363C02A9FCABF00AE7627 /* SpotViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +31,9 @@
 		99D363AD2A9F7C7000AE7627 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		99D363B72A9F821A00AE7627 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		99D363B92A9F9AEA00AE7627 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
+		99D363BB2A9FC4BC00AE7627 /* Spot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
+		99D363BD2A9FC61A00AE7627 /* SpotDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailView.swift; sourceTree = "<group>"; };
+		99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,9 @@
 				99D363AD2A9F7C7000AE7627 /* Info.plist */,
 				99D3639F2A9F7BD700AE7627 /* SnacktackularApp.swift */,
 				99D363A12A9F7BD700AE7627 /* LoginView.swift */,
+				99D363BB2A9FC4BC00AE7627 /* Spot.swift */,
+				99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */,
+				99D363BD2A9FC61A00AE7627 /* SpotDetailView.swift */,
 				99D363B92A9F9AEA00AE7627 /* ListView.swift */,
 				99D363A32A9F7BD900AE7627 /* Assets.xcassets */,
 				99D363A52A9F7BD900AE7627 /* Preview Content */,
@@ -163,9 +172,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				99D363BE2A9FC61A00AE7627 /* SpotDetailView.swift in Sources */,
 				99D363A22A9F7BD700AE7627 /* LoginView.swift in Sources */,
+				99D363C02A9FCABF00AE7627 /* SpotViewModel.swift in Sources */,
 				99D363A02A9F7BD700AE7627 /* SnacktackularApp.swift in Sources */,
 				99D363BA2A9F9AEA00AE7627 /* ListView.swift in Sources */,
+				99D363BC2A9FC4BC00AE7627 /* Spot.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
