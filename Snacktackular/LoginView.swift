@@ -9,19 +9,21 @@ import SwiftUI
 import Firebase
 
 struct LoginView: View {
+    enum Field {
+        case email, password
+    }
     @State private var email = ""
     @State private var password = ""
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var buttonDisabled = true
-    
-    enum Field {
-        case email, password
-    }
+    @State private var path = NavigationPath()
+
     @FocusState private var focusField: Field?
     
     var body: some View {
-        NavigationStack {
+        NavigationStack(path: $path) {
+            
             Image("logo")
                 .resizable()
                 .scaledToFit()
@@ -78,11 +80,21 @@ struct LoginView: View {
             .font(.title2)
             .padding(.top)
             .navigationBarTitleDisplayMode(.inline)
+            .navigationDestination(for: String.self) { view in
+                if view == "ListView" {
+                    ListView()
+                }
+            }
+            .onAppear {
+                //if already logged in
+                if Auth.auth().currentUser != nil {
+                    path.append("ListView")
+                }
+            }
         }
         .alert(alertMessage, isPresented: $showingAlert) {
             Button("OK", role: .cancel) {}
         }
-
     }
     func enableButtons() {
         let emailIsGood = email.count >= 6 && email.contains("@")
@@ -96,6 +108,7 @@ struct LoginView: View {
                 alertMessage = ("SIGN-UP ERROR: \(error.localizedDescription)")
                 showingAlert = true
             } else {
+                path.append("ListView")
                 print("Registration sucess")
             }
         }
@@ -107,6 +120,7 @@ struct LoginView: View {
             alertMessage = ("SIGIN ERROR: \(error.localizedDescription)")
             showingAlert = true
         } else {
+            path.append("ListView")
             print("Login sucess")
         }
     }
