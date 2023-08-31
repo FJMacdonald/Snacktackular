@@ -82,14 +82,14 @@
 				99D363AD2A9F7C7000AE7627 /* Info.plist */,
 				99D3639F2A9F7BD700AE7627 /* SnacktackularApp.swift */,
 				99D363A12A9F7BD700AE7627 /* LoginView.swift */,
-				99D363BB2A9FC4BC00AE7627 /* Spot.swift */,
-				99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */,
-				99D363BD2A9FC61A00AE7627 /* SpotDetailView.swift */,
 				99D363B92A9F9AEA00AE7627 /* ListView.swift */,
-				99D363E52AA0D4EB00AE7627 /* LocationManager.swift */,
-				99D363E42AA0D4EB00AE7627 /* Place.swift */,
+				99D363BD2A9FC61A00AE7627 /* SpotDetailView.swift */,
 				99D363E32AA0D4EA00AE7627 /* PlaceLookupView.swift */,
+				99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */,
 				99D363E62AA0D4EB00AE7627 /* PlaceViewModel.swift */,
+				99D363BB2A9FC4BC00AE7627 /* Spot.swift */,
+				99D363E42AA0D4EB00AE7627 /* Place.swift */,
+				99D363E52AA0D4EB00AE7627 /* LocationManager.swift */,
 				99D363A32A9F7BD900AE7627 /* Assets.xcassets */,
 				99D363A52A9F7BD900AE7627 /* Preview Content */,
 			);
@@ -326,6 +326,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snacktackular/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -355,6 +357,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Snacktackular/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "This app needs access to location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "This app needs access to location";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";

@@ -12,7 +12,7 @@ struct PlaceLookupView: View {
     @EnvironmentObject var locationManager: LocationManager
     @StateObject var placeVM = PlaceViewModel() // can be initialized as @StateObjecct if this is the first or only place this viewmodel is used
     @State private var seaarcchText = ""
-    @Binding var returnedPlace: Place
+    @Binding var spot: Spot
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
@@ -25,7 +25,10 @@ struct PlaceLookupView: View {
                         .font(.callout)
                 }
                 .onTapGesture {
-                    returnedPlace = place
+                    spot.name = place.name
+                    spot.address = place.address
+                    spot.latitude = place.latitude
+                    spot.longitude = place.longitude
                     dismiss()
                 }
             }
@@ -52,7 +55,7 @@ struct PlaceLookupView: View {
 struct PlaceLookupView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
-            PlaceLookupView(returnedPlace: .constant(Place(mapItem: MKMapItem())))
+            PlaceLookupView(spot: .constant(Spot()))
                 .environmentObject(LocationManager())
         }
     }
