@@ -7,8 +7,9 @@
 
 import Foundation
 import FirebaseFirestoreSwift
+import MapKit
 
-struct Spot: Identifiable, Codable {
+struct Spot: Identifiable, Codable, Equatable {
 /*
  @DocumentID is a property wrapper type that marks a DocumentReference? or String? field to be populated with a document identifier when it is read.
     
@@ -25,6 +26,9 @@ Important
     var address = ""
     var latitude = 0.0
     var longitude = 0.0
+    var coordinate: CLLocationCoordinate2D {
+        CLLocationCoordinate2D(latitude: latitude, longitude: longitude)
+    }
     
     var dictionary: [String: Any] {
         return ["name": name, "address": address, "latitude": latitude, "longitude": longitude]
