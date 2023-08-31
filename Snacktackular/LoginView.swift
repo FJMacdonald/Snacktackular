@@ -17,12 +17,12 @@ struct LoginView: View {
     @State private var showingAlert = false
     @State private var alertMessage = ""
     @State private var buttonDisabled = true
-    @State private var path = NavigationPath()
+    @State private var presentSheet = false
 
     @FocusState private var focusField: Field?
     
     var body: some View {
-        NavigationStack(path: $path) {
+        VStack {
             
             Image("logo")
                 .resizable()
@@ -88,9 +88,13 @@ struct LoginView: View {
             .onAppear {
                 //if already logged in
                 if Auth.auth().currentUser != nil {
-                    path.append("ListView")
+                    presentSheet = true
                 }
             }
+            .fullScreenCover(isPresented: $presentSheet) {
+                ListView()
+            } 
+
         }
         .alert(alertMessage, isPresented: $showingAlert) {
             Button("OK", role: .cancel) {}
@@ -108,8 +112,8 @@ struct LoginView: View {
                 alertMessage = ("SIGN-UP ERROR: \(error.localizedDescription)")
                 showingAlert = true
             } else {
-                path.append("ListView")
                 print("Registration sucess")
+                presentSheet = true
             }
         }
     }
@@ -120,8 +124,8 @@ struct LoginView: View {
             alertMessage = ("SIGIN ERROR: \(error.localizedDescription)")
             showingAlert = true
         } else {
-            path.append("ListView")
             print("Login sucess")
+            presentSheet = true
         }
     }
     }
