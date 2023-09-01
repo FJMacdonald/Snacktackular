@@ -27,6 +27,7 @@
 		99D363EE2AA1BE6500AE7627 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363ED2AA1BE6500AE7627 /* Review.swift */; };
 		99D363F12AA1C0C300AE7627 /* ReviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363F02AA1C0C300AE7627 /* ReviewView.swift */; };
 		99D363F32AA1C80E00AE7627 /* StarSelectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363F22AA1C80E00AE7627 /* StarSelectionView.swift */; };
+		99D363F52AA2334A00AE7627 /* ReviewViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363F42AA2334A00AE7627 /* ReviewViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		99D363ED2AA1BE6500AE7627 /* Review.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Review.swift; sourceTree = "<group>"; };
 		99D363F02AA1C0C300AE7627 /* ReviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewView.swift; sourceTree = "<group>"; };
 		99D363F22AA1C80E00AE7627 /* StarSelectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarSelectionView.swift; sourceTree = "<group>"; };
+		99D363F42AA2334A00AE7627 /* ReviewViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReviewViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +122,7 @@
 				99D363E52AA0D4EB00AE7627 /* LocationManager.swift */,
 				99D363E62AA0D4EB00AE7627 /* PlaceViewModel.swift */,
 				99D363BF2A9FCABF00AE7627 /* SpotViewModel.swift */,
+				99D363F42AA2334A00AE7627 /* ReviewViewModel.swift */,
 			);
 			path = ViewModels;
 			sourceTree = "<group>";
@@ -219,6 +222,7 @@
 			files = (
 				99D363BE2A9FC61A00AE7627 /* SpotDetailView.swift in Sources */,
 				99D363E72AA0D4EB00AE7627 /* PlaceLookupView.swift in Sources */,
+				99D363F52AA2334A00AE7627 /* ReviewViewModel.swift in Sources */,
 				99D363A22A9F7BD700AE7627 /* LoginView.swift in Sources */,
 				99D363E82AA0D4EB00AE7627 /* Place.swift in Sources */,
 				99D363F12AA1C0C300AE7627 /* ReviewView.swift in Sources */,
