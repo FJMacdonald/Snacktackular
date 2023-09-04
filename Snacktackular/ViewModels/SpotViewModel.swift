@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
+@MainActor
 class SpotViewModel: ObservableObject {
     @Published var spot = Spot()
     
@@ -26,7 +27,9 @@ class SpotViewModel: ObservableObject {
             //no id means this is a new spot to add
             do {
                 //addDocument names the doc with unique characters and puts this in the @DocumentID property, which we have named id, making the struct identifiable.
-                try await db.collection("spots").addDocument(data: spot.dictionary)
+                let documentRef = try await db.collection("spots").addDocument(data: spot.dictionary)
+                self.spot = spot
+                self.spot.id = documentRef.documentID
                 print("Data added sucessfully")
                 return true
             } catch {
