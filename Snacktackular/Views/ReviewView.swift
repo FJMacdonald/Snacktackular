@@ -102,6 +102,21 @@ struct ReviewView: View {
                         }
                     }
                 }
+                if review.id != nil {
+                    ToolbarItemGroup(placement: .bottomBar) {
+                        Spacer()
+                        Button {
+                            Task {
+                                let success = await reviewVM.deleteReview(spot: spot, review: review)
+                                if success {
+                                    dismiss()
+                                }
+                            }
+                        } label: {
+                            Image(systemName: "trash")
+                        }
+                    }
+                }
             }
         }
     }
