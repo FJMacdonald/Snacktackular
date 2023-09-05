@@ -6,13 +6,16 @@
 //
 
 import SwiftUI
+import Firebase
 
 struct ReviewView: View {
+    @StateObject var reviewVM = ReviewViewModel()
     @State var spot: Spot
     @State var review: Review
-    @StateObject var reviewVM = ReviewViewModel()
-    
+    @State var postedByThisUser = false
+    @State var rateOrReviewString = "Click To Rate:"
     @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         VStack{
             VStack(alignment: .leading) {
@@ -26,14 +29,18 @@ struct ReviewView: View {
             .padding(.horizontal)
             .frame(maxWidth: .infinity, alignment: .leading)
             
-            Text("Click to Rate:")
-                .font(.title2)
-                .bold()
+            Text(rateOrReviewString)
+                .font(postedByThisUser ? .title2 : .subheadline)
+                .bold(postedByThisUser)
+                .minimumScaleFactor(0.5)
+                .lineLimit(1)
+                .padding(.horizontal)
             
             StarSelectionView(rating: $review.rating)
+                .disabled(!postedByThisUser)
                 .overlay {
                     RoundedRectangle(cornerRadius: 5)
-                        .stroke(.gray.opacity(0.5), lineWidth: 2)
+                        .stroke(.gray.opacity(0.5), lineWidth: postedByThisUser ? 2 : 0)
                 }
             .padding(.bottom)
             
@@ -41,13 +48,14 @@ struct ReviewView: View {
                 Text("Review Title")
                     .bold()
                 TextField("title", text: $review.title)
-                    .textFieldStyle(.roundedBorder)
+                    .padding(.horizontal, 6)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray.opacity(0.5), lineWidth: 2)
+                            .stroke(.gray.opacity(0.5), lineWidth: postedByThisUser ? 2 : 0.3)
                     }
             }
             .padding(.horizontal)
+            .disabled(!postedByThisUser)
             VStack (alignment: .leading) {
                 Text("Review")
                     .bold()
@@ -58,7 +66,7 @@ struct ReviewView: View {
                     .frame(maxHeight: .infinity, alignment: .topLeading)
                     .overlay {
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(.gray.opacity(0.5), lineWidth: 2)
+                            .stroke(.gray.opacity(0.5), lineWidth: postedByThisUser ? 2 : 0.3)
                     }
                     
             }
@@ -66,20 +74,31 @@ struct ReviewView: View {
             Spacer()
             
         }
-        .toolbar {
-            ToolbarItem(placement: .cancellationAction) {
-                Button("Cancel") {
-                    dismiss()
-                }
+        .onAppear {
+            if review.reviewer == Auth.auth().currentUser?.email {
+                postedByThisUser = true
+            } else {
+                let reviewPostedOn = review.postedOn.formatted(date: .numeric, time: .omitted)
+                rateOrReviewString = "by: \(review.reviewer) on \(review.postedOn)"
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button("Save") {
-                    Task {
-                        let success = await reviewVM.saveReview(spot: spot, review: review)
-                        if success {
-                            dismiss()
-                        } else {
-                            print("ERROR: saviing data in ReviewView")
+        }
+        .navigationBarBackButtonHidden(postedByThisUser)
+        .toolbar {
+            if postedByThisUser {
+                ToolbarItem(placement: .cancellationAction) {
+                    Button("Cancel") {
+                        dismiss()
+                    }
+                }
+                ToolbarItem(placement: .navigationBarTrailing) {
+                    Button("Save") {
+                        Task {
+                            let success = await reviewVM.saveReview(spot: spot, review: review)
+                            if success {
+                                dismiss()
+                            } else {
+                                print("ERROR: saviing data in ReviewView")
+                            }
                         }
                     }
                 }

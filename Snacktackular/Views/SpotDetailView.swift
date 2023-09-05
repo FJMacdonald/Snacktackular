@@ -26,6 +26,14 @@ struct SpotDetailView: View {
     @State private var annotations: [Annotation] = []
     @State private var showSaveAlert = false
     @State private var showingAsSheet = false
+    var avgRating: String {
+        guard reviews.count != 0 else {
+            return "-.-"
+        }
+        //reduce to single value, starting from 0 and adding each subsequent rating
+        let averageValue = Double(reviews.reduce(0) { $0 + $1.rating }) / Double(reviews.count)
+        return String(format: "%.1f", averageValue)
+    }
     //The variiable below doesn't have the correct path, but will be changed in .onAppear
     @FirestoreQuery(collectionPath: "sports") var reviews: [Review]
     //you don't have to provide values for initialized properties but youu can...
@@ -63,7 +71,7 @@ struct SpotDetailView: View {
                         NavigationLink {
                             ReviewView(spot: spot, review: review)
                         } label: {
-                            Text(review.title)//TODO: Build a custom cell showing stars, title and body
+                            SpotReviewRowView(review: review)
                         }
                     }
                     
@@ -72,7 +80,7 @@ struct SpotDetailView: View {
                         Text("Avg. Rating:")
                             .font(.title2)
                             .bold()
-                        Text("4.5")
+                        Text(avgRating)//TODO: change this
                             .font(.title)
                             .fontWeight(.black)
                             .tint(Color("SnackColor"))

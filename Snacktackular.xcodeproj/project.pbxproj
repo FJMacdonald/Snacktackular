@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		99AE86762AA7021A00208AEE /* SpotReviewRowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99AE86752AA7021A00208AEE /* SpotReviewRowView.swift */; };
 		99D363A02A9F7BD700AE7627 /* SnacktackularApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D3639F2A9F7BD700AE7627 /* SnacktackularApp.swift */; };
 		99D363A22A9F7BD700AE7627 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 99D363A12A9F7BD700AE7627 /* LoginView.swift */; };
 		99D363A42A9F7BD900AE7627 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99D363A32A9F7BD900AE7627 /* Assets.xcassets */; };
@@ -31,6 +32,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		99AE86752AA7021A00208AEE /* SpotReviewRowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotReviewRowView.swift; sourceTree = "<group>"; };
 		99D3639C2A9F7BD700AE7627 /* Snacktackular.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Snacktackular.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D3639F2A9F7BD700AE7627 /* SnacktackularApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SnacktackularApp.swift; sourceTree = "<group>"; };
 		99D363A12A9F7BD700AE7627 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
@@ -136,6 +138,7 @@
 				99D363E32AA0D4EA00AE7627 /* PlaceLookupView.swift */,
 				99D363F02AA1C0C300AE7627 /* ReviewView.swift */,
 				99D363F22AA1C80E00AE7627 /* StarSelectionView.swift */,
+				99AE86752AA7021A00208AEE /* SpotReviewRowView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -226,6 +229,7 @@
 				99D363A22A9F7BD700AE7627 /* LoginView.swift in Sources */,
 				99D363E82AA0D4EB00AE7627 /* Place.swift in Sources */,
 				99D363F12AA1C0C300AE7627 /* ReviewView.swift in Sources */,
+				99AE86762AA7021A00208AEE /* SpotReviewRowView.swift in Sources */,
 				99D363C02A9FCABF00AE7627 /* SpotViewModel.swift in Sources */,
 				99D363A02A9F7BD700AE7627 /* SnacktackularApp.swift in Sources */,
 				99D363EE2AA1BE6500AE7627 /* Review.swift in Sources */,
