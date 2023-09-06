@@ -11,6 +11,9 @@ import FirebaseFirestoreSwift
 import PhotosUI
 
 struct SpotDetailView: View {
+    enum ButtonPressed {
+        case review, photo
+    }
     struct Annotation: Identifiable {
         let id = UUID().uuidString
         var name: String
@@ -23,10 +26,14 @@ struct SpotDetailView: View {
     @State var spot: Spot
     @State private var showPlaceLookupSheet = false
     @State private var showReviewViewSheet = false
-    @State private var mapRegion = MKCoordinateRegion()
-    @State private var annotations: [Annotation] = []
+    @State private var showPhotoViewSheet = false
     @State private var showSaveAlert = false
     @State private var showingAsSheet = false
+    @State private var buttonPressed = ButtonPressed.review
+    @State private var uiImageSelected = UIImage()
+    @State private var mapRegion = MKCoordinateRegion()
+    @State private var annotations: [Annotation] = []
+
     @State private var selectedPhoto: PhotosPickerItem?
     
     var avgRating: String {
@@ -89,15 +96,23 @@ struct SpotDetailView: View {
                         Task {
                             do {
                                 if let data = try await newValue?.loadTransferable(type: Image.self) {
-                                    
+                                    uiImageSelected = ImageRenderer(content: data).uiImage ?? UIImage()
+                                    print("successfully selected image")
+                                    buttonPressed = .photo
+                                    if spot.id == nil {
+                                        showSaveAlert.toggle()
+                                    } else {
+                                        showPhotoViewSheet.toggle()
+                                    }
                                 }
                             } catch {
-                                print("ERROR: ")
+                                print("ERROR: selecting image failed \(error.localizedDescription)")
                             }
                         }
                     }
                     
                     Button(action: {
+                        buttonPressed = .review
                         if spot.id == nil {
                             showSaveAlert.toggle()
                         } else {
@@ -206,7 +221,12 @@ struct SpotDetailView: View {
                 ReviewView(spot: spot, review: Review())
             }
         }
-        .alert("CCannot Rate Place Unless It is Saved", isPresented: $showSaveAlert) {
+        .sheet(isPresented: $showPhotoViewSheet) {
+            NavigationStack {
+                PhotoView(uiImage: uiImageSelected, spot: spot)
+            }
+        }
+        .alert("Cannot Rate Place Unless It is Saved", isPresented: $showSaveAlert) {
             Button("Cancel", role: .cancel) {}
             Button("Save", role: .none) {
                 Task {
@@ -216,7 +236,14 @@ struct SpotDetailView: View {
                     if success {
                         // the path has to be updated after saving a spot or we wouldn't be able to show new reviews added
                         $reviews.path = "spots/\(spot.id ?? "")/reviews"
-                        showReviewViewSheet.toggle()
+                        //TODO: add photos
+                        //$photos.path = "spots/\(spot.id ?? "")/photos"
+                        switch buttonPressed {
+                        case .review:
+                            showReviewViewSheet.toggle()
+                        case .photo:
+                            showPhotoViewSheet.toggle()
+                        }
                     } else {
                         print("ERROR saving spot")
                     }
