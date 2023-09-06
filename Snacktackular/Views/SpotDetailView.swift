@@ -8,6 +8,7 @@
 import SwiftUI
 import MapKit
 import FirebaseFirestoreSwift
+import PhotosUI
 
 struct SpotDetailView: View {
     struct Annotation: Identifiable {
@@ -26,6 +27,8 @@ struct SpotDetailView: View {
     @State private var annotations: [Annotation] = []
     @State private var showSaveAlert = false
     @State private var showingAsSheet = false
+    @State private var selectedPhoto: PhotosPickerItem?
+    
     var avgRating: String {
         guard reviews.count != 0 else {
             return "-.-"
@@ -64,6 +67,57 @@ struct SpotDetailView: View {
             .onChange(of: spot) { _ in
                 annotations = [Annotation(name: spot.name, address: spot.address, coordinate: spot.coordinate)]
             }
+            HStack {
+                Group {
+                    Text("Avg. Rating:")
+                        .font(.title2)
+                        .bold()
+                    Text(avgRating)
+                        .font(.title)
+                        .fontWeight(.black)
+                        .foregroundColor(Color("SnackColor"))
+                }
+                .lineLimit(1)
+                .minimumScaleFactor(0.5)
+                Spacer()
+                Group {
+                    PhotosPicker(selection: $selectedPhoto, matching: .images, preferredItemEncoding: .automatic) {
+                        Image(systemName: "photo")
+                        Text("Photo")
+                    }
+                    .onChange(of: selectedPhoto) { newValue in
+                        Task {
+                            do {
+                                if let data = try await newValue?.loadTransferable(type: Image.self) {
+                                    
+                                }
+                            } catch {
+                                print("ERROR: ")
+                            }
+                        }
+                    }
+                    
+                    Button(action: {
+                        if spot.id == nil {
+                            showSaveAlert.toggle()
+                        } else {
+                            showReviewViewSheet.toggle()
+                        }
+                    }, label: {
+                        Image(systemName: "star.fill")
+                        Text("Rate")
+                    })
+                }
+                .buttonStyle(.borderedProminent)
+                .bold()
+                .tint(Color("SnackColor"))
+                
+            }
+            .font(.caption)
+            .padding(.horizontal)
+            .lineLimit(1)
+            .minimumScaleFactor(0.5)
+
             
             List {
                 Section {
@@ -75,30 +129,8 @@ struct SpotDetailView: View {
                         }
                     }
                     
-                } header: {
-                    HStack {
-                        Text("Avg. Rating:")
-                            .font(.title2)
-                            .bold()
-                        Text(avgRating)//TODO: change this
-                            .font(.title)
-                            .fontWeight(.black)
-                            .tint(Color("SnackColor"))
-                        Spacer()
-                        Button("Rate It") {
-                            if spot.id == nil {
-                                showSaveAlert.toggle()
-                            } else {
-                                showReviewViewSheet.toggle()
-                            }
-                        }
-                        .buttonStyle(.borderedProminent)
-                        .bold()
-                        .tint(Color("SnackColor"))
-                        
-                    }
                 }
-                .headerProminence(.increased)
+
             }
             .listStyle(.plain)
             
