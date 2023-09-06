@@ -22,6 +22,9 @@ struct SpotDetailView: View {
     }
     @EnvironmentObject var spotVM: SpotViewModel
     @EnvironmentObject var locationManager: LocationManager
+    //The variiable below doesn't have the correct path, but will be changed in .onAppear
+    @FirestoreQuery(collectionPath: "spots") var reviews: [Review]
+    @FirestoreQuery(collectionPath: "spots") var photos: [Photo]
     @Environment(\.dismiss) private var dismiss
     @State var spot: Spot
     @State private var showPlaceLookupSheet = false
@@ -33,9 +36,12 @@ struct SpotDetailView: View {
     @State private var uiImageSelected = UIImage()
     @State private var mapRegion = MKCoordinateRegion()
     @State private var annotations: [Annotation] = []
-
     @State private var selectedPhoto: PhotosPickerItem?
+    //you don't have to provide values for initialized properties but youu can...
+    var previewRunning = false
     
+    let regionSize = 500.0 //meters
+
     var avgRating: String {
         guard reviews.count != 0 else {
             return "-.-"
@@ -44,12 +50,6 @@ struct SpotDetailView: View {
         let averageValue = Double(reviews.reduce(0) { $0 + $1.rating }) / Double(reviews.count)
         return String(format: "%.1f", averageValue)
     }
-    //The variiable below doesn't have the correct path, but will be changed in .onAppear
-    @FirestoreQuery(collectionPath: "sports") var reviews: [Review]
-    //you don't have to provide values for initialized properties but youu can...
-    var previewRunning = false
-    
-    let regionSize = 500.0 //meters
     
     var body: some View {
         VStack {
@@ -74,6 +74,8 @@ struct SpotDetailView: View {
             .onChange(of: spot) { _ in
                 annotations = [Annotation(name: spot.name, address: spot.address, coordinate: spot.coordinate)]
             }
+            
+            SpotDetailPhotosScrollView(photos: photos, spot: spot)
             HStack {
                 Group {
                     Text("Avg. Rating:")
@@ -157,6 +159,8 @@ struct SpotDetailView: View {
                 //reset the path correctly
                 $reviews.path = "spots/\(spot.id ?? "")/reviews"
                 print("reviews.pth = \($reviews.path)")
+                $photos.path = "spots/\(spot.id ?? "")/photos"
+                print("photos.pth = \($photos.path)")
             } else {
                 // spot.id starts out as niil
                 showingAsSheet = true
@@ -236,8 +240,7 @@ struct SpotDetailView: View {
                     if success {
                         // the path has to be updated after saving a spot or we wouldn't be able to show new reviews added
                         $reviews.path = "spots/\(spot.id ?? "")/reviews"
-                        //TODO: add photos
-                        //$photos.path = "spots/\(spot.id ?? "")/photos"
+                        $photos.path = "spots/\(spot.id ?? "")/photos"
                         switch buttonPressed {
                         case .review:
                             showReviewViewSheet.toggle()
