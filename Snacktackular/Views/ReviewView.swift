@@ -79,7 +79,7 @@ struct ReviewView: View {
                 postedByThisUser = true
             } else {
                 let reviewPostedOn = review.postedOn.formatted(date: .numeric, time: .omitted)
-                rateOrReviewString = "by: \(review.reviewer) on \(review.postedOn)"
+                rateOrReviewString = "by: \(review.reviewer) on \(reviewPostedOn)"
             }
         }
         .navigationBarBackButtonHidden(postedByThisUser)

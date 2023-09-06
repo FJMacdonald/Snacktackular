@@ -27,6 +27,7 @@ struct SpotDetailView: View {
     @FirestoreQuery(collectionPath: "spots") var photos: [Photo]
     @Environment(\.dismiss) private var dismiss
     @State var spot: Spot
+    @State var newPhoto = Photo()
     @State private var showPlaceLookupSheet = false
     @State private var showReviewViewSheet = false
     @State private var showPhotoViewSheet = false
@@ -97,9 +98,11 @@ struct SpotDetailView: View {
                     .onChange(of: selectedPhoto) { newValue in
                         Task {
                             do {
-                                if let data = try await newValue?.loadTransferable(type: Image.self) {
-                                    uiImageSelected = ImageRenderer(content: data).uiImage ?? UIImage()
+                                if let image = try await newValue?.loadTransferable(type: Image.self) {
+                                    uiImageSelected = ImageRenderer(content: image).uiImage ?? UIImage()
                                     print("successfully selected image")
+                                    //clear out contents if you add more than 1 photo
+                                    newPhoto = Photo()
                                     buttonPressed = .photo
                                     if spot.id == nil {
                                         showSaveAlert.toggle()
@@ -227,7 +230,7 @@ struct SpotDetailView: View {
         }
         .sheet(isPresented: $showPhotoViewSheet) {
             NavigationStack {
-                PhotoView(uiImage: uiImageSelected, spot: spot)
+                PhotoView(photo: $newPhoto, uiImage: uiImageSelected, spot: spot)
             }
         }
         .alert("Cannot Rate Place Unless It is Saved", isPresented: $showSaveAlert) {

@@ -45,7 +45,11 @@ class SpotViewModel: ObservableObject {
             print("ERROR: spot.id == nil")
             return false
         }
-        let photoName = UUID().uuidString //the name of the image file
+        var photoName = UUID().uuidString //the name of the image file
+        if photo.id != nil {
+            //if updating the descriptive info, will resave the photo.
+            photoName = photo.id!
+        }
         let storage = Storage.storage() //creates a firebase storage instance
         let storageRef = storage.reference().child("\(spotID)/\(photoName).jpeg")
         
